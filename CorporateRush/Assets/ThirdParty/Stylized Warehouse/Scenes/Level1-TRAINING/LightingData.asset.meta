@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 722c6897ffd60204d8626dc568c1d2b9
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 112000000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 265886
+  packageName: Stylized Warehouse
+  packageVersion: 1.1
+  assetPath: Assets/Stylized Warehouse/Scenes/Level1-TRAINING/LightingData.asset
+  uploadId: 676351

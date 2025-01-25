@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8ee8ba63a31bf6d41ba0bf89b0a17bc1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 265886
+  packageName: Stylized Warehouse
+  packageVersion: 1.1
+  assetPath: Assets/Stylized Warehouse/Animations/BoxingGlove.controller
+  uploadId: 676351

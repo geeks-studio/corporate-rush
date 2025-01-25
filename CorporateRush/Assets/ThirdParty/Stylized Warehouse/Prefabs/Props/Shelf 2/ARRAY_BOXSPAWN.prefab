@@ -1,0 +1,188 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1145213921941193855
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 337573511852940997}
+  - component: {fileID: 3675103078679073120}
+  - component: {fileID: 1505435440772851114}
+  - component: {fileID: 4815427529326334495}
+  - component: {fileID: 885387236615319099}
+  m_Layer: 0
+  m_Name: ARRAY_BOXSPAWN
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &337573511852940997
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145213921941193855}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &3675103078679073120
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145213921941193855}
+  m_Mesh: {fileID: 4954626076178118431, guid: c3630ecdafd97e849a37ab9587addb76, type: 3}
+--- !u!23 &1505435440772851114
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145213921941193855}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 1f3081832ee4b3d4ba26560139cd8f33, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4815427529326334495
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145213921941193855}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.0164993, y: 0.1115838, z: 1.0852399}
+  m_Center: {x: -0.0037654638, y: -0.05157817, z: 0}
+--- !u!114 &885387236615319099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145213921941193855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9421dd1a0ef3fb943b39ae575205a7a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boxSpawnData:
+  - boxPrefab: {fileID: 7937944845102415926, guid: 3e6ec5b27c81fd94a97d761c7853b06d,
+      type: 3}
+    spawnPercentage: 0.909
+  - boxPrefab: {fileID: 4746958059050727420, guid: 462899f228665a24299ed7ebe01ebd6a,
+      type: 3}
+    spawnPercentage: 0.824
+  - boxPrefab: {fileID: 2423429630419800935, guid: 8fcf63196e4f8564e8cc80d4a2a502d2,
+      type: 3}
+    spawnPercentage: 0.863
+  - boxPrefab: {fileID: 8791272236134551536, guid: 22c16e5edaba9a24fba70a20c88fdfed,
+      type: 3}
+    spawnPercentage: 0.87
+  - boxPrefab: {fileID: 3724894730702126985, guid: 6a9364f4e40cfca4f8195e94d75fb528,
+      type: 3}
+    spawnPercentage: 0.804
+  - boxPrefab: {fileID: 2622255520706797712, guid: e8e4f440c81b71449846c6dc33c6ed87,
+      type: 3}
+    spawnPercentage: 0.354
+  - boxPrefab: {fileID: 8298095478201469391, guid: 0f52d6ddeb205a045ad6b5896e7fc2cb,
+      type: 3}
+    spawnPercentage: 0.341
+  - boxPrefab: {fileID: 4581489381443413458, guid: 153960bf7a62fae4ea1ebbfea731c58b,
+      type: 3}
+    spawnPercentage: 0.146
+  - boxPrefab: {fileID: 498576500050143858, guid: 6d0900a0baac4c34db23f0a56cc3e707,
+      type: 3}
+    spawnPercentage: 0.126
+  - boxPrefab: {fileID: 1619010920903343279, guid: db3c6493b32f83347af9990a19c6ddfe,
+      type: 3}
+    spawnPercentage: 0.12
+  - boxPrefab: {fileID: 4295456812295981423, guid: 75b893c68c3cb664faf5cce3ffd38332,
+      type: 3}
+    spawnPercentage: 0.106
+  - boxPrefab: {fileID: 5909572973365057319, guid: 7d8101e9af0830d4d9d7df817afe448b,
+      type: 3}
+    spawnPercentage: 0.074
+  - boxPrefab: {fileID: 3580671274819005148, guid: d52aadf8acd5ad94cadee1b6eb0c68aa,
+      type: 3}
+    spawnPercentage: 0.048
+  - boxPrefab: {fileID: 716678298336220500, guid: e94afc2a8858c6c47bd10cf3b0524db2,
+      type: 3}
+    spawnPercentage: 0.139
+  - boxPrefab: {fileID: 3285554788096265792, guid: 0e903f66e2acd38478ebfe82b0af10fd,
+      type: 3}
+    spawnPercentage: 0.367
+  - boxPrefab: {fileID: 3130029848360931868, guid: b820378729461264d8dd0df8ce0f7dc3,
+      type: 3}
+    spawnPercentage: 0.133
+  - boxPrefab: {fileID: 5368704131526356025, guid: 9fda71f4615eb2943a248070ac1ee414,
+      type: 3}
+    spawnPercentage: 0.087
+  - boxPrefab: {fileID: 4798402538732261051, guid: c5a5f089537163c46ad6ceb40267e334,
+      type: 3}
+    spawnPercentage: 0.048
+  - boxPrefab: {fileID: 7156761586933867980, guid: acb1f11a714b1404b98288f7532e48e3,
+      type: 3}
+    spawnPercentage: 0.061
+  - boxPrefab: {fileID: 1869535067023192638, guid: b59c4d329d3cff340a7ff91822c21de3,
+      type: 3}
+    spawnPercentage: 0.139
+  - boxPrefab: {fileID: 4291165740485228126, guid: 135e72840e82fad4f907ad6a84f6764f,
+      type: 3}
+    spawnPercentage: 0.217
+  - boxPrefab: {fileID: 8296011568361344728, guid: 1926287c924f487418c9f25b896cc0fa,
+      type: 3}
+    spawnPercentage: 0.191
+  numBoxesPerShelf: 4

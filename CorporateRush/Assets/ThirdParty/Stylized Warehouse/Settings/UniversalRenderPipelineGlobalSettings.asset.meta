@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 18dc0cd2c080841dea60987a38ce93fa
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 265886
+  packageName: Stylized Warehouse
+  packageVersion: 1.1
+  assetPath: Assets/Stylized Warehouse/Settings/UniversalRenderPipelineGlobalSettings.asset
+  uploadId: 676351

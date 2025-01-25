@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 9421dd1a0ef3fb943b39ae575205a7a1
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 265886
+  packageName: Stylized Warehouse
+  packageVersion: 1.1
+  assetPath: Assets/Stylized Warehouse/Scripts/ShelfGenerator.cs
+  uploadId: 676351

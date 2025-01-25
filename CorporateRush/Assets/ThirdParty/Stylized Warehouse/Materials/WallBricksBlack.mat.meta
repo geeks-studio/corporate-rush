@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 50ac56a849d472e40950a0c4059081eb
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 265886
+  packageName: Stylized Warehouse
+  packageVersion: 1.1
+  assetPath: Assets/Stylized Warehouse/Materials/WallBricksBlack.mat
+  uploadId: 676351

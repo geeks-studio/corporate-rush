@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0281b4198cf2d364086a427c98c8953d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 265886
+  packageName: Stylized Warehouse
+  packageVersion: 1.1
+  assetPath: Assets/Stylized Warehouse/Animations/doorAnim.controller
+  uploadId: 676351

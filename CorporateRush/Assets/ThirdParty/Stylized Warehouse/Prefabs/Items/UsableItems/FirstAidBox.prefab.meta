@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 0c35c2b165b39b3489c180f705c771ab
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 265886
+  packageName: Stylized Warehouse
+  packageVersion: 1.1
+  assetPath: Assets/Stylized Warehouse/Prefabs/Items/UsableItems/FirstAidBox.prefab
+  uploadId: 676351

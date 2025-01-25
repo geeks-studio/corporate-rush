@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 1b382d19d5c513e4ba4e644078d43741
+timeCreated: 1517880069
+licenseType: Store
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 265886
+  packageName: Stylized Warehouse
+  packageVersion: 1.1
+  assetPath: Assets/Stylized Warehouse/Shaders/FrostedGlass.shader
+  uploadId: 676351

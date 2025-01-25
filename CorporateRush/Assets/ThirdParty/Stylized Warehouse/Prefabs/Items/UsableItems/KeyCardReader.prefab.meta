@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 9a9fddc03943f2141ba8996d77ef5759
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 265886
+  packageName: Stylized Warehouse
+  packageVersion: 1.1
+  assetPath: Assets/Stylized Warehouse/Prefabs/Items/UsableItems/KeyCardReader.prefab
+  uploadId: 676351

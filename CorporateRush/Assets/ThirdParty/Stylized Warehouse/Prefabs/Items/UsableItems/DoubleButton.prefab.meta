@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a8253ef16a953454490b2f0cad9edeae
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 265886
+  packageName: Stylized Warehouse
+  packageVersion: 1.1
+  assetPath: Assets/Stylized Warehouse/Prefabs/Items/UsableItems/DoubleButton.prefab
+  uploadId: 676351

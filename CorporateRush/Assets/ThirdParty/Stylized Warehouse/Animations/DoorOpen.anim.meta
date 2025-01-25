@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 06a9a33b5c58da44cb84f1507815a6ec
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 265886
+  packageName: Stylized Warehouse
+  packageVersion: 1.1
+  assetPath: Assets/Stylized Warehouse/Animations/DoorOpen.anim
+  uploadId: 676351

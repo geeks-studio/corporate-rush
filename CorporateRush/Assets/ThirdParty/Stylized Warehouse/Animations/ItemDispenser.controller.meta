@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 46763bff9392a834d884ac22e19f1b06
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 265886
+  packageName: Stylized Warehouse
+  packageVersion: 1.1
+  assetPath: Assets/Stylized Warehouse/Animations/ItemDispenser.controller
+  uploadId: 676351

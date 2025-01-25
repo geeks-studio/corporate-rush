@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: afc0ff06536aa3e4b981f653b193abc5
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 265886
+  packageName: Stylized Warehouse
+  packageVersion: 1.1
+  assetPath: Assets/Stylized Warehouse/Materials/WallConcreteTilesDark.mat
+  uploadId: 676351

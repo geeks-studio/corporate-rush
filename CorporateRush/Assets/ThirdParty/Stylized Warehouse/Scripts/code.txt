@@ -1,0 +1,47 @@
+ShelfGenerator Documentation
+Overview
+The ShelfGenerator package provides tools for spawning and organizing prefabs within a Unity scene. It includes two main components: SpawnPrefabs and ShelfGenerator. These components facilitate the creation of multi-floor shelves and the spawning of random box prefabs with configurable spawn percentages.
+
+Components
+1. SpawnPrefabs
+The SpawnPrefabs script allows you to spawn multiple prefabs in a specified direction and arrange them in multiple floors.
+
+Parameters:
+
+prefabToSpawn: The prefab GameObject to be spawned.
+numberOfPrefabs: The total number of prefabs to spawn.
+numberOfFloors: The number of floors each prefab will have.
+prefabSpawnDistance: The distance between each spawned prefab.
+floorSpawnDistance: The distance between each spawned floor.
+Usage:
+Attach the SpawnPrefabs script to a GameObject in your scene. Set the parameters as needed in the Inspector. When the scene starts, the prefabs will be spawned according to the specified parameters.
+
+
+
+
+2. ShelfGenerator
+The ShelfGenerator script allows for the spawning of box prefabs with specific spawn probabilities, arranged in a single row on a shelf.
+
+Parameters:
+
+boxSpawnData: An array of BoxSpawnData objects, each containing a box prefab and a spawn percentage.
+numBoxesPerShelf: The number of boxes to spawn per shelf.
+BoxSpawnData Class:
+
+boxPrefab: The prefab GameObject to be spawned.
+spawnPercentage: The percentage chance of this box being spawned, ranging from 0 to 1.
+Usage:
+Attach the ShelfGenerator script to a GameObject with a BoxCollider component. Set the parameters in the Inspector. The script will generate the boxes when the scene starts, based on the defined probabilities.
+
+
+
+
+
+
+
+
+
+
+
+
+I RECCOMEND USING THE PREMADE SHELV PREFABS

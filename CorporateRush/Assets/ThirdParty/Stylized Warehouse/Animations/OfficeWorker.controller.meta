@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3e1fb316e694adf41aef9a073c73b08c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 265886
+  packageName: Stylized Warehouse
+  packageVersion: 1.1
+  assetPath: Assets/Stylized Warehouse/Animations/OfficeWorker.controller
+  uploadId: 676351

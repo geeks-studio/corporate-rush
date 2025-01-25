@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d13eb9adbe74fa344865c04671b1c275
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 265886
+  packageName: Stylized Warehouse
+  packageVersion: 1.1
+  assetPath: Assets/Stylized Warehouse/Animations/Stomper.controller
+  uploadId: 676351

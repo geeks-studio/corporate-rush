@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3c21109978fc802468d9ab45ac7acce8
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 265886
+  packageName: Stylized Warehouse
+  packageVersion: 1.1
+  assetPath: Assets/Stylized Warehouse/Animations/Shovel/Shovel.controller
+  uploadId: 676351

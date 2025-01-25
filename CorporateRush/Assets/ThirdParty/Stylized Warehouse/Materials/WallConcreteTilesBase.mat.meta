@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: bdf265b0816acef47ba799dbd76e4d88
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 265886
+  packageName: Stylized Warehouse
+  packageVersion: 1.1
+  assetPath: Assets/Stylized Warehouse/Materials/WallConcreteTilesBase.mat
+  uploadId: 676351

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b2fc937b0e820904a92f28075657c2f6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 265886
+  packageName: Stylized Warehouse
+  packageVersion: 1.1
+  assetPath: Assets/Stylized Warehouse/Materials/MetalPannelWall.mat
+  uploadId: 676351

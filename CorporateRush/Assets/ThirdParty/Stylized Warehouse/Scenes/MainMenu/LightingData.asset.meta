@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a0db7c34ad01f8843ab5dd76d588f843
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 112000000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 265886
+  packageName: Stylized Warehouse
+  packageVersion: 1.1
+  assetPath: Assets/Stylized Warehouse/Scenes/MainMenu/LightingData.asset
+  uploadId: 676351

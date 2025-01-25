@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: cf7c7e5ca3bccf84a9607a16a0afda4a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 265886
+  packageName: Stylized Warehouse
+  packageVersion: 1.1
+  assetPath: Assets/Stylized Warehouse/Materials/DoorsDark.mat
+  uploadId: 676351

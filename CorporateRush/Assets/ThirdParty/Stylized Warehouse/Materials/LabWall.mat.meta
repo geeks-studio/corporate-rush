@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 281450d2fa410f34ca40f8b30a1b52ff
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 265886
+  packageName: Stylized Warehouse
+  packageVersion: 1.1
+  assetPath: Assets/Stylized Warehouse/Materials/LabWall.mat
+  uploadId: 676351

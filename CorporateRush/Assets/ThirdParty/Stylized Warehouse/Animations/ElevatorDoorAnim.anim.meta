@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 569731c82e9e0ef42be37309363e0895
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 265886
+  packageName: Stylized Warehouse
+  packageVersion: 1.1
+  assetPath: Assets/Stylized Warehouse/Animations/ElevatorDoorAnim.anim
+  uploadId: 676351

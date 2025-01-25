@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a12ca82ad07bf0b40b7e1e12d0ae5eca
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 265886
+  packageName: Stylized Warehouse
+  packageVersion: 1.1
+  assetPath: Assets/Stylized Warehouse/Prefabs/Items/UsableItems/ControllPannel.prefab
+  uploadId: 676351
