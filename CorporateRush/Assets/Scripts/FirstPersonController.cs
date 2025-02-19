@@ -1,121 +1,190 @@
 using UnityEngine;
 
-public class FirstPersonController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [Header("Movement Settings")]
-    [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float sprintMultiplier = 1.5f;
-    [SerializeField] private float crouchSpeed = 2.5f;
+    [SerializeField] private float walkSpeed = 4f;
+    [SerializeField] private float runSpeed = 7f;
+    [SerializeField] private float crouchSpeed = 2f;
     [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private float acceleration = 10f;
+    [SerializeField] private float deceleration = 6f;
+    [SerializeField] private float airControlFactor = 0.5f;
+    [SerializeField] private float ladderClimbSpeed = 3f;
+    private bool isClimbing = false;
+    private Vector3 moveDirection = Vector3.zero;
 
     [Header("Camera Settings")]
-    [SerializeField] private Transform cameraTransform;
-    [SerializeField] private float mouseSensitivity = 100f;
-    [SerializeField] private float maxLookAngle = 80f;
-    [SerializeField] private float crouchCameraHeight = 0.5f;
-    [SerializeField] private float crouchTransitionSpeed = 5f;
+    [SerializeField] private Transform cameraHolder;
+    [SerializeField] private float mouseSensitivity = 2f;
+    [SerializeField] private float maxLookAngle = 85f;
 
-    [Header("Physics")]
-    [SerializeField] private Rigidbody rb;
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private float groundCheckRadius = 0.3f;
-
-    private float currentSpeed;
-    private float xRotation = 0f;
-    private bool isGrounded = false;
+    [Header("Crouch Settings")]
+    [SerializeField] private float crouchHeight = 1f;
+    [SerializeField] private float crouchTransitionSpeed = 8f;
+    [SerializeField] private float originalCameraY = 8f;
     private bool isCrouching = false;
-    private float defaultCameraHeight;
-    private float targetCameraHeight;
+    private float originalHeight;
+    private Vector3 originalCenter;
+    private bool crouchRequested = false;
 
-    private void Start()
+    [Header("References")]
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private CapsuleCollider capsuleCollider;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
+
+    private float xRotation = 0f;
+    private bool isGrounded;
+
+    void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        CursorUtility.SetLockState(CursorLockMode.Locked);
         Cursor.visible = false;
-        defaultCameraHeight = cameraTransform.localPosition.y;
-        targetCameraHeight = defaultCameraHeight;
 
-        // Заморозка вращения Rigidbody, чтобы капсула не падала.
-        rb.freezeRotation = true;
+        originalHeight = capsuleCollider.height;
+        originalCenter = capsuleCollider.center;
     }
 
-    private void Update()
+    void Update()
     {
-        HandleCamera();
+        HandleCameraMovement();
         HandleMovement();
         HandleJump();
         HandleCrouch();
-        SmoothCameraTransition();
     }
 
-    private void FixedUpdate()
+    private void OnTriggerEnter(Collider other)
     {
-        CheckGround();
+        if (other.CompareTag("Ladder"))
+        {
+            isClimbing = true;
+            rb.useGravity = false;
+        }
     }
 
-    private void HandleCamera()
+    private void OnTriggerExit(Collider other)
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        if (other.CompareTag("Ladder"))
+        {
+            isClimbing = false;
+            rb.useGravity = true;
+        }
+    }
+
+    private void HandleCameraMovement()
+    {
+        float mouseX = Input.GetAxisRaw("Mouse X") * mouseSensitivity;
+        float mouseY = Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -maxLookAngle, maxLookAngle);
 
-        cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        transform.Rotate(Vector3.up * mouseX); // Вращение капсулы вбок
+        cameraHolder.localRotation = Quaternion.Euler(xRotation, 0, 0);
+        transform.Rotate(Vector3.up * mouseX);
     }
 
     private void HandleMovement()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveZ = Input.GetAxisRaw("Vertical");
 
-        currentSpeed = moveSpeed;
+        bool isRunning = Input.GetKey(KeyCode.LeftShift) && !isCrouching;
+        float currentSpeed = isRunning ? runSpeed : (isCrouching ? crouchSpeed : walkSpeed);
 
-        if (Input.GetKey(KeyCode.LeftShift) && !isCrouching)
+        Vector3 targetDirection = transform.right * moveX + transform.forward * moveZ;
+        targetDirection = targetDirection.normalized * currentSpeed;
+
+        if (isClimbing)
         {
-            currentSpeed *= sprintMultiplier;
+            float climbSpeed = Input.GetAxisRaw("Vertical") * ladderClimbSpeed;
+            moveDirection = new Vector3(targetDirection.x, climbSpeed, targetDirection.z);
+        }
+        else if (isGrounded)
+        {
+            if (rb.linearVelocity.y <= 0f && moveX == 0 && moveZ == 0)
+            {
+                moveDirection = Vector3.zero;
+            }
+            else
+            {
+                moveDirection = Vector3.Lerp(moveDirection, targetDirection, Time.deltaTime * acceleration);
+            }
+        }
+        else
+        {
+            if (moveX != 0 || moveZ != 0)
+            {
+                moveDirection = Vector3.Lerp(moveDirection, targetDirection, Time.deltaTime * acceleration);
+            }
         }
 
-        if (isCrouching)
-        {
-            currentSpeed = crouchSpeed;
-        }
-
-        Vector3 moveDirection = transform.right * horizontal + transform.forward * vertical;
-        moveDirection.Normalize();
-
-        Vector3 velocity = new Vector3(moveDirection.x * currentSpeed, rb.linearVelocity.y, moveDirection.z * currentSpeed);
-        rb.linearVelocity = velocity; // Прямое управление Rigidbody
+        Vector3 velocity = new Vector3(moveDirection.x, rb.linearVelocity.y, moveDirection.z);
+        rb.linearVelocity = velocity;
     }
 
     private void HandleJump()
     {
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        Collider[] groundCollisions = new Collider[1];
+        isGrounded = Physics.OverlapSphereNonAlloc(groundCheck.position, 0.2f, groundCollisions, groundLayer) > 0;
+
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isCrouching)
         {
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
+            rb.linearVelocity = new Vector3(moveDirection.x, 0f, moveDirection.z);
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
     }
 
     private void HandleCrouch()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            isCrouching = !isCrouching;
-
-            targetCameraHeight = isCrouching ? crouchCameraHeight : defaultCameraHeight;
+            crouchRequested = true;
+            Crouch();
         }
+        else if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            crouchRequested = false;
+            TryStandUp();
+        }
+
+        if (isCrouching && !crouchRequested)
+        {
+            TryStandUp();
+        }
+
+        float targetHeight = isCrouching ? crouchHeight : originalHeight;
+        Vector3 targetCenter = isCrouching ? new Vector3(0, crouchHeight / 2f, 0) : originalCenter;
+
+        capsuleCollider.height = targetHeight;
+        capsuleCollider.center = targetCenter;
+
+        Vector3 targetCameraPos = cameraHolder.localPosition;
+        targetCameraPos.y = isCrouching ? crouchHeight : originalCameraY;
+        cameraHolder.localPosition = Vector3.Lerp(cameraHolder.localPosition, targetCameraPos, Time.deltaTime * crouchTransitionSpeed);
     }
 
-    private void SmoothCameraTransition()
+    private void Crouch()
     {
-        Vector3 cameraPosition = cameraTransform.localPosition;
-        cameraPosition.y = Mathf.Lerp(cameraPosition.y, targetCameraHeight, Time.deltaTime * crouchTransitionSpeed);
-        cameraTransform.localPosition = cameraPosition;
+        isCrouching = true;
+        capsuleCollider.height = crouchHeight;
+        capsuleCollider.center = new Vector3(0, crouchHeight / 2f, 0);
     }
 
-    private void CheckGround()
+    private void TryStandUp()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
+        bool canStand = !Physics.CheckCapsule(
+            transform.position + Vector3.up * crouchHeight,
+            transform.position + Vector3.up * originalHeight,
+            capsuleCollider.radius * 0.9f,
+            groundLayer
+        );
+
+        if (canStand)
+        {
+            isCrouching = false;
+            capsuleCollider.height = originalHeight;
+            capsuleCollider.center = originalCenter;
+        }
     }
 }
