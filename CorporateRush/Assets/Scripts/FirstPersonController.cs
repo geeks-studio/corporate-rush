@@ -8,8 +8,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float crouchSpeed = 2f;
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private float acceleration = 10f;
-    [SerializeField] private float deceleration = 6f;
-    [SerializeField] private float airControlFactor = 0.5f;
     [SerializeField] private float ladderClimbSpeed = 3f;
     private bool isClimbing = false;
     private Vector3 moveDirection = Vector3.zero;
@@ -39,9 +37,6 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        CursorUtility.SetLockState(CursorLockMode.Locked);
-        Cursor.visible = false;
-
         originalHeight = capsuleCollider.height;
         originalCenter = capsuleCollider.center;
     }
