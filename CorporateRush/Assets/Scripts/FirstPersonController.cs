@@ -105,6 +105,9 @@ public class PlayerController : MonoBehaviour
             {
                 moveDirection = Vector3.Lerp(moveDirection, targetDirection, Time.deltaTime * acceleration);
             }
+
+            // 🔥 Step Climb Fix: Check for small obstacles and lift player up
+            TryStepUp();
         }
         else
         {
@@ -117,6 +120,25 @@ public class PlayerController : MonoBehaviour
         Vector3 velocity = new Vector3(moveDirection.x, rb.linearVelocity.y, moveDirection.z);
         rb.linearVelocity = velocity;
     }
+    
+    private void TryStepUp()
+    {
+        float stepHeight = 0.3f; // Max step height
+        float stepCheckDistance = 0.3f; // How far to check in front
+
+        // Raycast forward to check if a step is there
+        if (Physics.Raycast(transform.position + Vector3.up * 0.1f, moveDirection.normalized, out RaycastHit hit, stepCheckDistance, groundLayer))
+        {
+            // Raycast above the step to check if there's space to step up
+            if (!Physics.Raycast(transform.position + Vector3.up * stepHeight, moveDirection.normalized, stepCheckDistance, groundLayer))
+            {
+                // 🔥 Apply step up movement
+                transform.position += new Vector3(0, stepHeight, 0);
+            }
+        }
+    }
+
+
 
     private void HandleJump()
     {
