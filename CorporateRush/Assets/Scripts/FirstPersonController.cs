@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private float acceleration = 10f;
     [SerializeField] private float ladderClimbSpeed = 3f;
-    private bool isClimbing = false;
     private Vector3 moveDirection = Vector3.zero;
 
     [Header("Camera Settings")]
@@ -34,11 +33,15 @@ public class PlayerController : MonoBehaviour
 
     private float xRotation = 0f;
     private bool isGrounded;
+    private bool isClimbing = false;
+    private bool onLadder = false;
 
     void Start()
     {
         originalHeight = capsuleCollider.height;
         originalCenter = capsuleCollider.center;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
@@ -53,8 +56,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Ladder"))
         {
-            isClimbing = true;
-            rb.useGravity = false;
+            onLadder = true;
         }
     }
 
@@ -62,8 +64,10 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Ladder"))
         {
+            onLadder = false;
             isClimbing = false;
-            rb.useGravity = true;
+            rb.useGravity = true; // Restore gravity when leaving ladder
+            rb.linearVelocity = Vector3.zero; // Prevent unwanted movement
         }
     }
 
@@ -90,12 +94,13 @@ public class PlayerController : MonoBehaviour
         Vector3 targetDirection = transform.right * moveX + transform.forward * moveZ;
         targetDirection = targetDirection.normalized * currentSpeed;
 
-        if (isClimbing)
+        if (onLadder)
         {
-            float climbSpeed = Input.GetAxisRaw("Vertical") * ladderClimbSpeed;
-            moveDirection = new Vector3(targetDirection.x, climbSpeed, targetDirection.z);
+            HandleLadderMovement();
+            return;
         }
-        else if (isGrounded)
+
+        if (isGrounded)
         {
             if (rb.linearVelocity.y <= 0f && moveX == 0 && moveZ == 0)
             {
@@ -105,40 +110,44 @@ public class PlayerController : MonoBehaviour
             {
                 moveDirection = Vector3.Lerp(moveDirection, targetDirection, Time.deltaTime * acceleration);
             }
-
-            // 🔥 Step Climb Fix: Check for small obstacles and lift player up
-            TryStepUp();
         }
         else
         {
-            if (moveX != 0 || moveZ != 0)
-            {
-                moveDirection = Vector3.Lerp(moveDirection, targetDirection, Time.deltaTime * acceleration);
-            }
+            moveDirection = Vector3.Lerp(moveDirection, targetDirection * 0.5f, Time.deltaTime * acceleration);
         }
 
         Vector3 velocity = new Vector3(moveDirection.x, rb.linearVelocity.y, moveDirection.z);
         rb.linearVelocity = velocity;
     }
-    
-    private void TryStepUp()
-    {
-        float stepHeight = 0.3f; // Max step height
-        float stepCheckDistance = 0.3f; // How far to check in front
 
-        // Raycast forward to check if a step is there
-        if (Physics.Raycast(transform.position + Vector3.up * 0.1f, moveDirection.normalized, out RaycastHit hit, stepCheckDistance, groundLayer))
+    private void HandleLadderMovement()
+    {
+        if (!isClimbing)
         {
-            // Raycast above the step to check if there's space to step up
-            if (!Physics.Raycast(transform.position + Vector3.up * stepHeight, moveDirection.normalized, stepCheckDistance, groundLayer))
-            {
-                // 🔥 Apply step up movement
-                transform.position += new Vector3(0, stepHeight, 0);
-            }
+            isClimbing = true;
+            rb.useGravity = false;
+            rb.linearVelocity = Vector3.zero; // Reset velocity
+        }
+
+        float verticalInput = Input.GetAxisRaw("Vertical");
+
+        if (Mathf.Abs(verticalInput) > 0.1f)
+        {
+            rb.linearVelocity = new Vector3(0, verticalInput * ladderClimbSpeed, 0);
+        }
+        else
+        {
+            rb.linearVelocity = Vector3.zero;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            isClimbing = false;
+            onLadder = false;
+            rb.useGravity = true;
+            rb.linearVelocity = new Vector3(moveDirection.x, jumpForce, moveDirection.z);
         }
     }
-
-
 
     private void HandleJump()
     {
