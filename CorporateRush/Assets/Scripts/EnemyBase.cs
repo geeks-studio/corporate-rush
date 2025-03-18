@@ -96,4 +96,16 @@ public abstract class EnemyBase : MonoBehaviour
     {
         Destroy(gameObject);
     }
+    
+    // 🔥 Draws the detection & attack radius in Scene View
+    private void OnDrawGizmosSelected()
+    {
+        // Set color for detection radius (blue)
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+
+        // Set color for attack range (red)
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
 }
