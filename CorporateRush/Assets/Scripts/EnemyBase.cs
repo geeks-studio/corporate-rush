@@ -6,10 +6,13 @@ public abstract class EnemyBase : MonoBehaviour
 {
     [Header("Enemy Stats")]
     [SerializeField] protected float maxHealth = 100f;
-    [SerializeField] protected float attackRange = 2f;
+    [SerializeField] protected float attackRange = 2f; // Distance to attack
     [SerializeField] protected float attackCooldown = 1.5f;
     [SerializeField] protected float detectionRadius = 10f;
     [SerializeField] protected int attackDamage = 20;
+
+    [Header("Movement Settings")]
+    [SerializeField] protected float rotationSpeed = 10f; // 🔥 New: Customize enemy turn speed
 
     [Header("References")]
     [SerializeField] protected NavMeshAgent agent;
@@ -32,6 +35,12 @@ public abstract class EnemyBase : MonoBehaviour
         {
             Debug.LogError("❌ No GameObject found with tag 'Player'. Make sure your Player is tagged correctly!");
         }
+
+        // 🔥 Set stopping distance to prevent enemies from standing inside the player
+        if (agent != null)
+        {
+            agent.stoppingDistance = attackRange - 0.5f; // Adjust based on enemy size
+        }
     }
 
     protected virtual void Update()
@@ -42,8 +51,16 @@ public abstract class EnemyBase : MonoBehaviour
 
         if (distanceToPlayer <= detectionRadius)
         {
-            agent.SetDestination(player.position);
-            RotateTowardsPlayer(); // 🔥 Now enemy rotates while following
+            // 🔥 Move toward player but stop at attack range
+            if (distanceToPlayer > agent.stoppingDistance)
+            {
+                agent.SetDestination(player.position);
+            }
+            else
+            {
+                agent.ResetPath(); // Stop movement when in range
+                RotateTowardsPlayer();
+            }
 
             if (distanceToPlayer <= attackRange && !isAttacking)
             {
@@ -54,15 +71,13 @@ public abstract class EnemyBase : MonoBehaviour
 
     private void RotateTowardsPlayer()
     {
-        // Get direction to the player
+        if (player == null) return;
+
         Vector3 directionToPlayer = (player.position - transform.position).normalized;
+        directionToPlayer.y = 0; // Keep enemy upright
 
-        // Only rotate on the Y-axis (prevent tilting)
-        directionToPlayer.y = 0;
-
-        // Smoothly rotate towards player
         Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
     protected virtual IEnumerator AttackPlayer()
@@ -95,17 +110,5 @@ public abstract class EnemyBase : MonoBehaviour
     protected virtual void Die()
     {
         Destroy(gameObject);
-    }
-    
-    // 🔥 Draws the detection & attack radius in Scene View
-    private void OnDrawGizmosSelected()
-    {
-        // Set color for detection radius (blue)
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);
-
-        // Set color for attack range (red)
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }

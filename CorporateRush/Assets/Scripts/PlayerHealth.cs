@@ -1,24 +1,35 @@
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class PlayerHealth : MonoBehaviour
 {
     [Header("Health Settings")]
     [SerializeField] private int maxHealth = 100;
-    [SerializeField] private float respawnDelay = 2f; // Time before respawn
     private int currentHealth;
+    private bool isDead = false;
+
+    [Header("Respawn & Checkpoint System")]
+    [SerializeField] private float respawnDelay = 2f; // Time before respawn
     private Vector3 lastCheckpoint; // Stores the last checkpoint position
     private Rigidbody rb;
-    private PlayerController playerController; // Reference to movement script
+    private FirstPersonController playerController; // Reference to movement script
 
-    private bool isDead = false;
+    [Header("UI References")]
+    [SerializeField] private GameObject deathScreen; // Assign "You're Dead" UI
 
     void Start()
     {
         currentHealth = maxHealth;
         lastCheckpoint = transform.position; // Default spawn point
         rb = GetComponent<Rigidbody>();
-        playerController = GetComponent<PlayerController>(); // Get movement script
+        playerController = GetComponent<FirstPersonController>(); // Get movement script
+
+        if (deathScreen != null)
+        {
+            deathScreen.SetActive(false); // Hide UI at start
+        }
     }
 
     public void TakeDamage(int damage)
@@ -43,9 +54,16 @@ public class PlayerHealth : MonoBehaviour
     private IEnumerator RespawnAfterDelay()
     {
         isDead = true;
-        if (playerController != null) playerController.enabled = false; // Disable movement
 
-        // OPTIONAL: Add death animation, sound, or UI fade here
+        // Disable player movement
+        if (playerController != null) playerController.enabled = false;
+
+        // Show death UI
+        if (deathScreen != null)
+        {
+            deathScreen.SetActive(true);
+        }
+
         yield return new WaitForSeconds(respawnDelay);
 
         // Respawn player at last checkpoint
@@ -60,6 +78,12 @@ public class PlayerHealth : MonoBehaviour
 
         // Restore health
         currentHealth = maxHealth;
+
+        // Hide death UI again
+        if (deathScreen != null)
+        {
+            deathScreen.SetActive(false);
+        }
 
         // Re-enable player movement
         if (playerController != null) playerController.enabled = true;
