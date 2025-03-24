@@ -2,14 +2,28 @@ using UnityEngine;
 
 public class WeaponPickup : MonoBehaviour
 {
-    [SerializeField] private GameObject weaponModel; // Assign weapon mesh here
-    [SerializeField] private AudioClip pickupSound; // Sound when picked up
+    [SerializeField] private GameObject weaponModel;
+    [SerializeField] private AudioClip pickupSound;
+    [SerializeField] private bool isRangedWeapon;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform shootPoint;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        PlayerWeapon playerWeapon = other.GetComponent<PlayerWeapon>();
+        if (playerWeapon == null)
         {
-            other.GetComponent<PlayerWeapon>().EquipWeapon(gameObject, weaponModel, pickupSound);
+            Debug.LogError("❌ PlayerWeapon script is missing on Player!");
+            return;
+        }
+
+        if (isRangedWeapon)
+        {
+            playerWeapon.EquipRangedWeapon(gameObject, weaponModel, pickupSound, bulletPrefab, shootPoint);
+        }
+        else
+        {
+            playerWeapon.EquipMeleeWeapon(gameObject, weaponModel, pickupSound);
         }
     }
 }

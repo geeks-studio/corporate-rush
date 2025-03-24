@@ -11,6 +11,7 @@ TagManager:
   - DeathZone
   - Weapon
   - Cloth
+  - Enemy
   layers:
   - Default
   - TransparentFX

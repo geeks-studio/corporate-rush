@@ -1,77 +1,79 @@
 using UnityEngine;
-using System.Collections;
 
 public class PlayerWeapon : MonoBehaviour
 {
-    [Header("Weapon Settings")]
-    [SerializeField] private Transform weaponHolder; // Assign a child object in front of the camera
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private Animator animator;
-    [SerializeField] private float attackRange = 2f; // Damage range
-    [SerializeField] private int attackDamage = 25; // Damage amount
-    [SerializeField] private LayerMask enemyLayer; // Assign "Enemy" layer in Inspector
-    private GameObject currentWeapon;
-    
-    private bool canAttack = true;
-    
-    public void EquipWeapon(GameObject weaponObject, GameObject weaponModel, AudioClip pickupSound)
+    [Header("Weapon Handlers")]
+    [SerializeField] private MeleeWeaponHandler meleeWeaponHandler;
+    [SerializeField] private RangedWeaponHandler rangedWeaponHandler;
+    [SerializeField] private Animator animator; // 🔥 Reference to Player Animator
+
+    private void Awake()
     {
-        if (currentWeapon != null)
-        {
-            Destroy(currentWeapon); // Remove existing weapon
-        }
+        if (meleeWeaponHandler == null)
+            meleeWeaponHandler = GetComponent<MeleeWeaponHandler>();
 
-        // Attach weapon to player
-        currentWeapon = Instantiate(weaponModel, weaponHolder.position, weaponHolder.rotation, weaponHolder);
-        currentWeapon.transform.localPosition = Vector3.zero;
-        currentWeapon.transform.localRotation = Quaternion.identity;
+        if (rangedWeaponHandler == null)
+            rangedWeaponHandler = GetComponent<RangedWeaponHandler>();
 
-        // Play sound effect
-        if (pickupSound != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(pickupSound);
-        }
-
-        // Destroy the pickup object
-        Destroy(weaponObject);
+        if (meleeWeaponHandler == null || rangedWeaponHandler == null)
+            Debug.LogError("❌ Weapon handlers are missing on Player!");
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && currentWeapon != null && canAttack) // Left-click to attack
+        if (Input.GetMouseButtonDown(0)) // Left-click
         {
-            StartCoroutine(Attack());
-        }
-    }
-
-    private IEnumerator Attack()
-    {
-        canAttack = false;
-        animator.SetTrigger("Attack"); // Play attack animation
-
-        yield return new WaitForSeconds(0.2f); // Small delay before applying damage
-
-        // 🔥 Check for enemies in range
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position + transform.forward * attackRange * 0.5f, attackRange, enemyLayer);
-
-        foreach (Collider enemy in hitEnemies)
-        {
-            EnemyBase enemyScript = enemy.GetComponent<EnemyBase>();
-            if (enemyScript != null)
+            if (meleeWeaponHandler.HasWeapon())
             {
-                enemyScript.TakeDamage(attackDamage);
+                meleeWeaponHandler.PerformAttack();
+            }
+            else if (rangedWeaponHandler.HasWeapon())
+            {
+                rangedWeaponHandler.Shoot();
             }
         }
 
-        yield return new WaitForSeconds(0.5f); // Cooldown before next attack
-
-        canAttack = true;
+        if (Input.GetKeyDown(KeyCode.R)) // 🔄 Reload weapon
+        {
+            if (rangedWeaponHandler.HasWeapon())
+            {
+                rangedWeaponHandler.Reload();
+            }
+        }
     }
 
-    private void OnDrawGizmosSelected()
+    public void EquipMeleeWeapon(GameObject weaponObject, GameObject weaponModel, AudioClip pickupSound)
     {
-        // 🔥 Show attack range in Scene view
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position + transform.forward * attackRange * 0.5f, attackRange);
+        if (meleeWeaponHandler == null) return;
+
+        Debug.Log("Equipped melee weapon");
+
+        Debug.Log(animator == null);
+
+        // 🔥 Disable Ranged Animations when switching to Melee
+        if (animator != null)
+        {
+            animator.SetBool("HoldingMeleeWeapon", true);
+            animator.SetBool("HoldingRangedWeapon", false);
+            Debug.Log("Check");
+        }
+
+        meleeWeaponHandler.EquipWeapon(weaponObject, weaponModel, pickupSound);
+    }
+
+    public void EquipRangedWeapon(GameObject weaponObject, GameObject weaponModel, AudioClip pickupSound, GameObject bullet, Transform shootPos)
+    {
+        if (rangedWeaponHandler == null) return;
+        
+        Debug.Log("Equipped ranged weapon");
+
+        // 🔥 Disable Melee Animations when switching to Ranged
+        if (animator != null)
+        {
+            animator.SetBool("HoldingMeleeWeapon", false);
+            animator.SetBool("HoldingRangedWeapon", true);
+        }
+
+        rangedWeaponHandler.EquipWeapon(weaponObject, weaponModel, pickupSound, bullet, shootPos);
     }
 }

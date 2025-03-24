@@ -2292,7 +2292,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1442315615}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: HQWeaponsPack.WeaponsChanger, Assembly-CSharp
         m_MethodName: ToggleBlood
         m_Mode: 1
         m_Arguments:
@@ -2304,7 +2304,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1442315616}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
         m_MethodName: PlayOneShot
         m_Mode: 2
         m_Arguments:
@@ -2597,7 +2597,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1442315615}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: HQWeaponsPack.WeaponsChanger, Assembly-CSharp
         m_MethodName: ToggleCloth
         m_Mode: 1
         m_Arguments:
@@ -2609,7 +2609,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1442315616}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
         m_MethodName: PlayOneShot
         m_Mode: 2
         m_Arguments:
@@ -3953,7 +3953,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1442315615}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: HQWeaponsPack.WeaponsChanger, Assembly-CSharp
         m_MethodName: ChangeClothTextures
         m_Mode: 1
         m_Arguments:
