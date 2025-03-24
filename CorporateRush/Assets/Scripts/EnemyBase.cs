@@ -12,11 +12,15 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] protected int attackDamage = 20;
 
     [Header("Movement Settings")]
-    [SerializeField] protected float rotationSpeed = 10f; // 🔥 New: Customize enemy turn speed
+    [SerializeField] protected float rotationSpeed = 10f; // Customize enemy turn speed
 
     [Header("References")]
     [SerializeField] protected NavMeshAgent agent;
     protected Transform player;
+
+    [Header("Hit Effects")]
+    [SerializeField] private GameObject hitEffectPrefab; // Assign different effects for robots & humans
+    [SerializeField] private Transform hitEffectPoint;  // Where the effect appears (assign in prefab)
 
     protected float currentHealth;
     protected bool isAttacking = false;
@@ -100,9 +104,17 @@ public abstract class EnemyBase : MonoBehaviour
     public virtual void TakeDamage(float damage)
     {
         currentHealth -= damage;
+        Debug.Log($"Got damage = {damage}");
+
+        // 🔥 Show hit effect
+        if (hitEffectPrefab != null)
+        {
+            Instantiate(hitEffectPrefab, hitEffectPoint != null ? hitEffectPoint.position : transform.position, Quaternion.identity);
+        }
 
         if (currentHealth <= 0)
         {
+            Debug.Log($"{gameObject.name} Died");
             Die();
         }
     }

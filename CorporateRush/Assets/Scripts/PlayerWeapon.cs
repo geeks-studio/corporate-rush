@@ -7,6 +7,9 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] private Transform weaponHolder; // Assign a child object in front of the camera
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private Animator animator;
+    [SerializeField] private float attackRange = 2f; // Damage range
+    [SerializeField] private int attackDamage = 25; // Damage amount
+    [SerializeField] private LayerMask enemyLayer; // Assign "Enemy" layer in Inspector
     private GameObject currentWeapon;
     
     private bool canAttack = true;
@@ -46,9 +49,29 @@ public class PlayerWeapon : MonoBehaviour
         canAttack = false;
         animator.SetTrigger("Attack"); // Play attack animation
 
-        // Wait for animation time
-        yield return new WaitForSeconds(0.5f); 
+        yield return new WaitForSeconds(0.2f); // Small delay before applying damage
+
+        // 🔥 Check for enemies in range
+        Collider[] hitEnemies = Physics.OverlapSphere(transform.position + transform.forward * attackRange * 0.5f, attackRange, enemyLayer);
+
+        foreach (Collider enemy in hitEnemies)
+        {
+            EnemyBase enemyScript = enemy.GetComponent<EnemyBase>();
+            if (enemyScript != null)
+            {
+                enemyScript.TakeDamage(attackDamage);
+            }
+        }
+
+        yield return new WaitForSeconds(0.5f); // Cooldown before next attack
 
         canAttack = true;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        // 🔥 Show attack range in Scene view
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position + transform.forward * attackRange * 0.5f, attackRange);
     }
 }
