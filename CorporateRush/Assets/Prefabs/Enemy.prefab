@@ -35,6 +35,7 @@ Transform:
   m_Children:
   - {fileID: 1587036623034328784}
   - {fileID: 9191411077369095159}
+  - {fileID: 4770849664939141275}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -203.608, z: 0}
 --- !u!114 &586795300740331552
@@ -50,12 +51,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  attackRange: 2.5
+  attackRange: 2
   attackCooldown: 1.5
   detectionRadius: 10
   attackDamage: 20
   rotationSpeed: 10
   agent: {fileID: 8840412723621879094}
+  hitEffectPrefab: {fileID: 195360, guid: a3c24a5ae068ed44d950af671f99cc21, type: 3}
+  hitEffectPoint: {fileID: 4770849664939141275}
 --- !u!195 &8840412723621879094
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -128,6 +131,37 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &8204710125651538828
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4770849664939141275}
+  m_Layer: 6
+  m_Name: HitEffectPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4770849664939141275
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8204710125651538828}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.311, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5987313063630973760}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1264649594403438907
 PrefabInstance:
   m_ObjectHideFlags: 0
