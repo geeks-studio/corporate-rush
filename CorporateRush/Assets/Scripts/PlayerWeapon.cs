@@ -3,77 +3,93 @@ using UnityEngine;
 public class PlayerWeapon : MonoBehaviour
 {
     [Header("Weapon Handlers")]
-    [SerializeField] private MeleeWeaponHandler meleeWeaponHandler;
-    [SerializeField] private RangedWeaponHandler rangedWeaponHandler;
-    [SerializeField] private Animator animator; // 🔥 Reference to Player Animator
+    [SerializeField] private MeleeWeaponHandler meleeHandler;
+    [SerializeField] private RangedWeaponHandler rangedHandler;
+    [SerializeField] private Animator animator;
+
+    private GameObject currentWeapon;
+    private bool hasMelee = false;
+    private bool hasRanged = false;
+    private bool meleeEquipped = false;
+    private bool rangedEquipped = false;
 
     private void Awake()
     {
-        if (meleeWeaponHandler == null)
-            meleeWeaponHandler = GetComponent<MeleeWeaponHandler>();
-
-        if (rangedWeaponHandler == null)
-            rangedWeaponHandler = GetComponent<RangedWeaponHandler>();
-
-        if (meleeWeaponHandler == null || rangedWeaponHandler == null)
-            Debug.LogError("❌ Weapon handlers are missing on Player!");
+        // Auto-assign if not linked in Inspector
+        if (meleeHandler == null) meleeHandler = GetComponentInChildren<MeleeWeaponHandler>();
+        if (rangedHandler == null) rangedHandler = GetComponentInChildren<RangedWeaponHandler>();
+        if (animator == null) animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // Left-click
+        if (Input.GetKeyDown(KeyCode.Alpha1) && hasMelee)
         {
-            if (meleeWeaponHandler.HasWeapon())
-            {
-                meleeWeaponHandler.PerformAttack();
-            }
-            else if (rangedWeaponHandler.HasWeapon())
-            {
-                rangedWeaponHandler.Shoot();
-            }
+            EquipMelee();
         }
 
-        if (Input.GetKeyDown(KeyCode.R)) // 🔄 Reload weapon
+        if (Input.GetKeyDown(KeyCode.Alpha2) && hasRanged)
         {
-            if (rangedWeaponHandler.HasWeapon())
-            {
-                rangedWeaponHandler.Reload();
-            }
+            EquipRanged();
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (meleeEquipped)
+                meleeHandler.PerformAttack();
+            else if (rangedEquipped)
+                rangedHandler.Shoot();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R) && rangedEquipped)
+        {
+            rangedHandler.Reload();
         }
     }
 
-    public void EquipMeleeWeapon(GameObject weaponObject, GameObject weaponModel, AudioClip pickupSound)
+    public void EquipMeleeWeapon(GameObject pickupObject, GameObject weaponModel, AudioClip pickupSound)
     {
-        if (meleeWeaponHandler == null) return;
+        meleeHandler.EquipWeapon(pickupObject, weaponModel, pickupSound);
+        hasMelee = true;
 
-        Debug.Log("Equipped melee weapon");
+        EquipMelee(); // Auto switch
+    }
 
-        Debug.Log(animator == null);
+    public void EquipRangedWeapon(GameObject pickupObject, GameObject weaponModel, AudioClip pickupSound, GameObject bullet, Transform shootPoint)
+    {
+        rangedHandler.EquipWeapon(pickupObject, weaponModel, pickupSound, bullet, shootPoint);
+        hasRanged = true;
 
-        // 🔥 Disable Ranged Animations when switching to Melee
+        EquipRanged(); // Auto switch
+    }
+
+    private void EquipMelee()
+    {
+        meleeEquipped = true;
+        rangedEquipped = false;
+
+        meleeHandler.ShowWeapon(true);
+        rangedHandler.ShowWeapon(false);
+
         if (animator != null)
         {
             animator.SetBool("HoldingMeleeWeapon", true);
             animator.SetBool("HoldingRangedWeapon", false);
-            Debug.Log("Check");
         }
-
-        meleeWeaponHandler.EquipWeapon(weaponObject, weaponModel, pickupSound);
     }
 
-    public void EquipRangedWeapon(GameObject weaponObject, GameObject weaponModel, AudioClip pickupSound, GameObject bullet, Transform shootPos)
+    private void EquipRanged()
     {
-        if (rangedWeaponHandler == null) return;
-        
-        Debug.Log("Equipped ranged weapon");
+        meleeEquipped = false;
+        rangedEquipped = true;
 
-        // 🔥 Disable Melee Animations when switching to Ranged
+        meleeHandler.ShowWeapon(false);
+        rangedHandler.ShowWeapon(true);
+
         if (animator != null)
         {
             animator.SetBool("HoldingMeleeWeapon", false);
             animator.SetBool("HoldingRangedWeapon", true);
         }
-
-        rangedWeaponHandler.EquipWeapon(weaponObject, weaponModel, pickupSound, bullet, shootPos);
     }
 }

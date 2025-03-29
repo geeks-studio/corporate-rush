@@ -150,8 +150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6270eff965d6dc48a5ef3c4db7ec9d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meleeWeaponHandler: {fileID: 0}
-  rangedWeaponHandler: {fileID: 0}
+  meleeHandler: {fileID: 0}
+  rangedHandler: {fileID: 0}
   animator: {fileID: 1187635973601308647}
 --- !u!82 &5635192522738952678
 AudioSource:

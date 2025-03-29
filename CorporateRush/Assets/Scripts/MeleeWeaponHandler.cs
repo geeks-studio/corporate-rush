@@ -36,6 +36,14 @@ public class MeleeWeaponHandler : MonoBehaviour
     {
         return currentWeapon != null;
     }
+    
+    public void ShowWeapon(bool show)
+    {
+        if (currentWeapon != null)
+            currentWeapon.SetActive(show);
+    }
+
+
 
     public void PerformAttack()
     {
